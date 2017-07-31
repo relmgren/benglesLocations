@@ -1,0 +1,16 @@
+{
+  "name": "bjornserver",
+  "version": "1.0.0",
+  "description": "bjorns server",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "author": "bjorn englesson",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}

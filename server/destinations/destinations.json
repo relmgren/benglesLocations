@@ -1,0 +1,26 @@
+{
+  "locationData": [
+    {
+      "name": "Cake",
+      "location": "Cake-city",
+      "questions": [
+        {
+          "question": "Cake were?",
+          "answer": "Cake2",
+          "choices": [
+            "Cake",
+            "Cake2"
+          ]
+        }
+      ],
+      "target": "kth_logo",
+      "panels": [
+        {
+          "text": "Who is the cakest of them all",
+          "image": "",
+          "model": ""
+        }
+      ]
+    }
+  ]
+}
