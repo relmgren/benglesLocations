@@ -33,24 +33,13 @@ app.post('/admin/post', function (req, res) {
   // need to hash this
   console.log(req.body)
   if (true) {
-    // UPDATE FILE
-    fs.readFileSync(path.join(__dirname, 'destinations', 'destinations.json'), function(err, content) {
-      if (err) {
-        console.log(err)
-        res.send('server error')
-        return
-      }
-      let parsedJson = JSON.parse(content)
-      parsedJson.table.push(req.body)
+    console.log("updating destinations")
 
-      fs.writeFile(path.join(__dirname, 'destinations', 'destinations.json'), function(writeErr) {
-        if (writeErr) {
-          console.log(writeErr)
-          res.send('server error')
-          return
-        }
-      })
-    })
+    // UPDATE FILE
+    let content = fs.readFileSync(path.join(__dirname, 'destinations', 'destinations.json'))
+    let parsedJson = JSON.parse(content)
+    parsedJson.locationData.push(req.body)
+    console.log(parsedJson)
     res.send('succesfully inserted')
   } else {
     res.send('wrong password')
