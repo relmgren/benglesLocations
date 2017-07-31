@@ -4,42 +4,44 @@ const https = require('https')
 const path = require('path')
 const bodyParser = require('body-parser');
 
-
 const app = express()
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-
-const port = 3443// change port for production
-
+const port = 3443 // change port for production
+const destinationsFile = path.join(__dirname, 'destinations', 'destinations.json')
 const httpsOptions = {
   cert: fs.readFileSync(path.join(__dirname, 'ssl', 'localhost_3443.cert')),
   key: fs.readFileSync(path.join(__dirname, 'ssl', 'localhost_3443.key'))
 }
 
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+
+// GETS
 app.get('/', function (req, res) {
   res.send('replace with index.html')
 })
 
 app.get('/destinations', function (req, res) {
   res.type('text/plain');
-  res.send(fs.readFileSync(path.join(__dirname, 'destinations', 'destinations.json')))
+  res.send(fs.readFileSync(destinationsFile, 'utf-8'))
 })
 
 app.get('/admin', function (req, res) {
   res.send('admin-page should be here')
 })
 
+// POSTS
 app.post('/admin/post', function (req, res) {
-  // need to hash this
-  console.log(req.body)
+  // should check password
+  // if (req.body.password == this.password)
   if (true) {
-    console.log("updating destinations")
 
     // UPDATE FILE
-    let content = fs.readFileSync(path.join(__dirname, 'destinations', 'destinations.json'))
+    let content = fs.readFileSync(destinationsFile, 'utf-8')
     let parsedJson = JSON.parse(content)
     parsedJson.locationData.push(req.body)
-    console.log(parsedJson)
+    fs.writeFileSync(destinationsFile, JSON.stringify(parsedJson, null, 2), 'utf-8')
+
     res.send('succesfully inserted')
   } else {
     res.send('wrong password')
